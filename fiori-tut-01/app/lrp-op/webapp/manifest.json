@@ -92,11 +92,6 @@
           "pattern": "Products({key}):?query:",
           "name": "ProductsObjectPage",
           "target": "ProductsObjectPage"
-        },
-        {
-          "pattern": "Products({key})/suppliers({key2}):?query:",
-          "name": "SuppliersObjectPage",
-          "target": "SuppliersObjectPage"
         }
       ],
       "targets": {
@@ -167,24 +162,8 @@
             "settings": {
               "editableHeaderContent": false,
               "contextPath": "/Products",
-              "navigation": {
-                "suppliers": {
-                  "detail": {
-                    "route": "SuppliersObjectPage"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "SuppliersObjectPage": {
-          "type": "Component",
-          "id": "SuppliersObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": false,
-              "contextPath": "/Products/suppliers"
+              "navigation": {},
+              "sectionLayout": "Page"
             }
           }
         }
