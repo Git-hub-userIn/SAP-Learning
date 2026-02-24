@@ -1,0 +1,9 @@
+ID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax,HomePage,product_ID
+660e8400-e29b-41d4-a716-446655440010,TechCorp,John Doe,Manager,123 Tech St,New York,NY,10001,USA,123-456-7890,,www.techcorp.com,550e8400-e29b-41d4-a716-446655440000
+660e8400-e29b-41d4-a716-446655440011,InputDevices Inc,Jane Smith,Sales Rep,456 Input Ave,San Francisco,CA,94102,USA,987-654-3210,,www.inputdevices.com,550e8400-e29b-41d4-a716-446655440002
+660e8400-e29b-41d4-a716-446655440012,Office Supplies Co,Mike Johnson,Director,789 Office Blvd,Chicago,IL,60601,USA,555-123-4567,,www.officesupplies.com,550e8400-e29b-41d4-a716-446655440003
+660e8400-e29b-41d4-a716-446655440013,Electronics Plus,Sarah Wilson,VP Sales,321 Electronics Dr,Seattle,WA,98101,USA,444-987-6543,,www.electronicsplus.com,550e8400-e29b-41d4-a716-446655440005
+660e8400-e29b-41d4-a716-446655440014,Home & Garden Ltd,David Brown,Manager,654 Garden Way,Austin,TX,78701,USA,333-456-7890,,www.homegarden.com,550e8400-e29b-41d4-a716-446655440007
+660e8400-e29b-41d4-a716-446655440015,Audio Tech,Emma Davis,Engineer,987 Sound St,Los Angeles,CA,90210,USA,222-333-4444,,www.audiotech.com,550e8400-e29b-41d4-a716-446655440011
+660e8400-e29b-41d4-a716-446655440016,Sports Gear Inc,Tom Miller,Sales Manager,147 Sports Ave,Denver,CO,80202,USA,111-222-3333,,www.sportsgear.com,550e8400-e29b-41d4-a716-446655440012
+660e8400-e29b-41d4-a716-446655440017,BookWorld,Anna Garcia,Owner,258 Reading Ln,Boston,MA,02101,USA,999-888-7777,,www.bookworld.com,550e8400-e29b-41d4-a716-446655440013

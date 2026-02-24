@@ -1,0 +1,203 @@
+{
+  "_version": "1.82.0",
+  "sap.app": {
+    "id": "sap.practice.lrpop",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.20.3",
+      "toolsId": "ff163153-1317-4c89-b925-dab0dbb786ce"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.145.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.practice.lrpop.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ProductsList",
+          "target": "ProductsList"
+        },
+        {
+          "pattern": "Products({key}):?query:",
+          "name": "ProductsObjectPage",
+          "target": "ProductsObjectPage"
+        },
+        {
+          "pattern": "Products({key})/suppliers({key2}):?query:",
+          "name": "SuppliersObjectPage",
+          "target": "SuppliersObjectPage"
+        }
+      ],
+      "targets": {
+        "ProductsList": {
+          "type": "Component",
+          "id": "ProductsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Products",
+              "variantManagement": "Page",
+              "navigation": {
+                "Products": {
+                  "detail": {
+                    "route": "ProductsObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "disableCopyToClipboard": true,
+                    "enableExport": true,
+                    "selectAll": true,
+                    "condensedTableLayout": false
+                  },
+                  "actions": {
+                    "DataFieldForAction::CatalogService.continueProduct": {
+                      "enableOnSelect": "single"
+                    }
+                  },
+                  "columns": {
+                    "DataField::UnitPrice": {
+                      "width": "auto"
+                    },
+                    "DataField::ProductID": {
+                      "width": "auto"
+                    },
+                    "DataField::image": {
+                      "width": "auto"
+                    },
+                    "DataField::ProductName": {
+                      "width": "auto"
+                    },
+                    "DataField::UnitsInStock": {
+                      "width": "auto"
+                    },
+                    "DataField::UnitsLeft": {
+                      "width": "auto"
+                    },
+                    "DataField::category::CategoryName": {
+                      "width": "auto"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled",
+              "hideFilterBar": false
+            }
+          }
+        },
+        "ProductsObjectPage": {
+          "type": "Component",
+          "id": "ProductsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Products",
+              "navigation": {
+                "suppliers": {
+                  "detail": {
+                    "route": "SuppliersObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SuppliersObjectPage": {
+          "type": "Component",
+          "id": "SuppliersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Products/suppliers"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}

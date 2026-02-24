@@ -1,0 +1,9 @@
+ID,CategoryID,CategoryName,Description
+550e8400-e29b-41d4-a716-446655440100,1001,Electronics,"Computers, laptops, mice, keyboards and other electronic devices"
+550e8400-e29b-41d4-a716-446655440200,2001,"Monitors & Printers","Computer monitors, printers, projectors and display devices"
+550e8400-e29b-41d4-a716-446655440300,3001,"Mobile Devices","Tablets, smartphones and mobile computing devices"
+550e8400-e29b-41d4-a716-446655440400,4001,"Garden Tools","Gardening equipment, hoses, mowers and outdoor tools"
+5001,5001,"Office Furniture","Office chairs, whiteboards and workspace furniture"
+6001,6001,"Audio Equipment","Headphones, speakers and audio devices"
+7001,7001,"Sports & Fitness","Yoga mats, dumbbells and fitness equipment"
+8001,8001,Books,"Programming books, cookbooks and educational materials"

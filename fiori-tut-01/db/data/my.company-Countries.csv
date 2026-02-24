@@ -1,0 +1,84 @@
+ID,CountryCode,CountryName
+e90247ca-6673-4d69-a2c3-1c8b0a4b9c61,USA,United States
+fc870d20-08d6-40ab-bf3d-3c5628348fa8,CAN,Canada
+3cd1155b-e390-43df-8175-212fe4166c42,MEX,Mexico
+e5bbfed1-6ee3-4d02-a543-c326401eefed,GBR,United Kingdom
+a8f02bed-4f1b-43d8-97ff-909140a15713,DEU,Germany
+56db5f72-b957-4bb5-883a-e497cee32c13,FRA,France
+c2b113ab-ce9a-40df-a28e-6051cffba0b3,ITA,Italy
+b9736afa-adb7-486e-8847-1030bab71964,ESP,Spain
+bd748f0e-301e-4c7d-870f-082b15724c58,NLD,Netherlands
+c09614ea-671e-46b9-931e-2bb21597af78,BEL,Belgium
+24851171-c361-4868-89e1-d2dc5ed5231b,CHE,Switzerland
+55438d72-1fb5-488a-9e37-96110dba3192,AUT,Austria
+87e49a20-43f1-4d88-baff-640eb258d9ac,SWE,Sweden
+75d03a1f-a623-40e8-a981-574a265b0727,NOR,Norway
+a027b1a2-87bd-435f-b6a9-2943c4ffb4e5,DNK,Denmark
+855feadb-26c2-439c-aff5-cf605ff43b4d,FIN,Finland
+aa63d7a5-0e20-4f05-888c-a18017d4f91a,POL,Poland
+4ea5221e-f059-49b5-83c2-e5dfa1a36dfa,CZE,Czech Republic
+e412aae4-7316-49a7-9878-e26f68c5878c,HUN,Hungary
+b2f21199-d1a8-4e16-822f-e9719e266c3a,SVK,Slovakia
+d0e22835-9320-4809-aa0d-ef5f7baa4c79,SVN,Slovenia
+7becdd85-fbdf-4a96-ac59-47b387323c8a,HRV,Croatia
+d5e82be9-9c6f-4347-8dc6-263524c37e79,BIH,Bosnia and Herzegovina
+a7c2b706-e6b0-4d37-aadc-44af3f653a69,SRB,Serbia
+80566d87-8730-461a-be58-5f95ee1174a0,MNE,Montenegro
+34b657d2-49db-4763-a6bb-91cf91c4679f,MKD,North Macedonia
+961456c1-7e97-4075-8135-6bc92edad666,BGR,Bulgaria
+f8cd1b8f-3843-497c-b800-63bdb74317b5,ROU,Romania
+b52ec5d8-1746-430a-a228-db8cfad96029,GRC,Greece
+f88bd7e9-175f-4f3f-9d96-4a169cb734ec,TUR,Turkey
+a9d99e74-520d-4add-a637-02025c3ec42e,ISR,Israel
+de94b54c-1fb2-4825-aa6d-d85b44b5c555,SAU,Saudi Arabia
+bcf82fd8-bad5-4cfb-b406-e7673aa9273d,ARE,United Arab Emirates
+047c1555-ff4d-459f-a023-40b1c06ccfdb,QAT,Qatar
+cfc83239-60f0-46cb-997d-2f3a00d561ae,KWT,Kuwait
+df99372e-256d-4f78-a39c-8637a65b44ff,BHR,Bahrain
+baf63677-40d2-4324-b2ba-fa90691a5afc,OMN,Oman
+fe7946b1-f5ec-40aa-9948-3551c19fc82c,JOR,Jordan
+7cf231ef-9c76-47f9-ac4f-13c16a37d4d8,LBN,Lebanon
+fda92389-589d-45fd-968c-6dbf7a48f269,EGY,Egypt
+823e60ff-49b2-40bd-99fc-c76f3cc6a253,MAR,Morocco
+e82ac254-def9-45f0-890f-00fd3947eb1c,TUN,Tunisia
+a5747271-df0e-4572-b363-0d5b1be5794f,DZA,Algeria
+75da3343-ba76-4d51-914a-a887c4c30aab,LBY,Libya
+7dfceaab-dd1c-4841-9515-93f5cd3b732e,ZAF,South Africa
+46fae4fb-a7f3-40a4-bab1-d6905c7c9dd2,NGA,Nigeria
+1d376f10-cfbd-46cc-8b58-7a9ed357bd59,KEN,Kenya
+93569c03-aa84-49d6-b296-593348261c54,GHA,Ghana
+f8a3eedd-a9c3-4d7c-8b28-a22b16dddd5b,SEN,Senegal
+609d8bfe-1f1e-4636-93d5-d59699f82dbd,CIV,Côte d'Ivoire
+526fb5bc-d429-406c-927b-9dd96359c914,CMR,Cameroon
+3af65130-efef-4af9-87ef-c9bf187cc99d,ETH,Ethiopia
+b460147d-7b2c-4787-bf06-af060af0ab5c,UGA,Uganda
+5cfc1da0-fe1b-422d-b0a2-646689e4b9f1,TZA,Tanzania
+1050112e-dcb8-4e78-bd93-c11369670053,ZWE,Zimbabwe
+6d17f039-ffcd-4311-bc85-4a177d671788,ZMB,Zambia
+c4ab2e4a-0ea6-4a53-b0b1-7dd9aee8aa6f,MWI,Malawi
+f7b44060-73fe-492c-82b2-9e98a049fe87,MOZ,Mozambique
+d9b5a0de-5622-484b-bb9f-f3caab092057,AGO,Angola
+87593689-b35e-4ad4-9541-efa8ca7468d6,NAM,Namibia
+b6199236-cbb3-48d0-8628-c23c82b63a20,BWA,Botswana
+8461dd74-44aa-46b3-84ea-7583bcc8c75b,IND,India
+c0c75d20-25d7-4c20-b4ad-3a6e15a91c9d,CHN,China
+be1d6996-470c-4892-85ab-a7695c81095c,JPN,Japan
+7c87ecfb-2119-4816-8bf8-f86416b30e25,KOR,South Korea
+64d03d9f-cbcf-4475-bfe6-6ab3f9d09527,SGP,Singapore
+7908ca34-e072-4819-b316-07e77d799cb5,MYS,Malaysia
+f8dc7ac3-dfbc-482c-9964-e7c5f4822f34,THA,Thailand
+1b16e1b6-8381-4daf-81f5-e8ec6cb9ddef,IDN,Indonesia
+e378aa93-ac33-433d-a710-49427405e2a4,PHL,Philippines
+97412319-6418-480f-befa-9d6655a0747d,VNM,Vietnam
+a3bf11fd-7854-4d2f-9339-22a1d0b01b38,AUS,Australia
+f3fc649b-b900-4ab0-ac03-1d61e19d3647,NZL,New Zealand
+74611f21-946e-4a4c-8370-cc72b463b9ae,BRA,Brazil
+cf18eb7a-9b9f-4a1c-8424-a404928df240,ARG,Argentina
+88e2bf4e-97ca-4b2d-ad36-d25e12eba62e,CHL,Chile
+cfdac936-2a5d-4b1e-a975-d44f17317bc9,COL,Colombia
+ca87d0db-fafa-4d83-beb4-0bcc77ca7bc9,PER,Peru
+820af5a8-e581-42f2-90ac-3eedae7e6f4a,ECU,Ecuador
+2f3ed195-774d-4b4f-834e-68b9236375bd,BOL,Bolivia
+399d76a5-41ce-47d8-bab9-e04e493c6856,PRY,Paraguay
+09e64c69-a5a7-4d65-a450-71ac676c515a,URY,Uruguay
+f1ca047b-a703-48ec-965c-75a5b8cb25c9,VEN,Venezuela
