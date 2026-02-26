@@ -282,6 +282,13 @@ annotate service.Products with @(
 );
 
 annotate service.Products with {
+    image     @(
+        UI.IsImageURL            : false,
+        Core.AcceptableMediaTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+    );
+};
+
+annotate service.Products with {
     ProductName @Common.Label : 'Product Name';
     SupplierID  @Common.Label : 'Supplier';
     UnitPrice   @Common.Label : 'Unit Price';

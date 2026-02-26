@@ -18,5 +18,12 @@
   ],
   "sapux": [
     "app/lrp-op"
-  ]
+  ],
+  "cds": {
+    "server": {
+      "body_parser": {
+        "limit": "10mb"
+      }
+    }
+  }
 }

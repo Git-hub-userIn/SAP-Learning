@@ -163,7 +163,23 @@
               "editableHeaderContent": false,
               "contextPath": "/Products",
               "navigation": {},
-              "sectionLayout": "Page"
+              "sectionLayout": "Page",
+              "content": {
+                "header": {
+                  "actions": {
+                    "uploadImage": {
+                      "press": "sap.practice.lrpop.ext.controller.UploadController.onUploadImage",
+                      "visible": "{ui>/isEditable}",
+                      "enabled": true,
+                      "text": "Upload Image",
+                      "position": {
+                        "placement": "Before",
+                        "anchor": "EditAction"
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
