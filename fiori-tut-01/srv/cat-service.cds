@@ -10,8 +10,20 @@ service CatalogService {
                 when UnitsInStock >= 20
                      then 2 // Warning (Orange) - Medium stock
                 else 1 // Error (Red) - Low stock
-            end                         as stockCriticality : Integer,
-            UnitsInStock - UnitsOnOrder as UnitsLeft        : Integer
+            end                         as stockCriticality        : Integer,
+            UnitsInStock - UnitsOnOrder as UnitsLeft               : Integer,
+            case
+                when PaymentStatus = 'Paid'
+                     then 3 // Green
+                when PaymentStatus = 'Pending'
+                     then 2 // Orange
+                else 1 // Red
+            end                         as paymentCriticality      : Integer,
+            case
+                when Discontinued = true
+                     then 1 // Red
+                else 3 // Green
+            end                         as discontinuedCriticality : Integer
         }
         actions {
             action continueProduct();

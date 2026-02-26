@@ -4,51 +4,69 @@ annotate service.Products with @(
         {
             $Type : 'UI.DataField',
             Value : ProductID,
-            Label : 'ProductID',
-            @UI.Importance : #High,
+            Label : 'Product ID',
         },
         {
             $Type : 'UI.DataField',
             Value : image,
-            Label : 'image',
-            @UI.Importance : #High,
+            Label : 'Image',
+            ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : ProductName,
-            Label : 'ProductName',
-            @UI.Importance : #High,
+            Label : 'Product Name',
+            ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : UnitsInStock,
-            Label : 'UnitsInStock',
-            Criticality : UnitsInStock,
+            Label : 'Stock',
+            Criticality : stockCriticality,
             CriticalityRepresentation : #WithIcon,
-            @UI.Importance : #High,
+            ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataFieldForAnnotation',
-            Target : '@UI.Chart#UnitsInStock',
-            Label : 'UnitsInStock',
+            Target : '@UI.Chart#StockBullet',
+            Label : 'Stock Chart',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : UnitsOnOrder,
+            Label : 'On Order',
         },
         {
             $Type : 'UI.DataField',
             Value : UnitsLeft,
-            Label : 'Stocks',
-            @UI.Importance : #High,
+            Label : 'Units Left',
+            Criticality : stockCriticality,
+            CriticalityRepresentation : #WithIcon,
+            ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : category.CategoryName,
-            Label : 'CategoryName',
-            @UI.Importance : #High,
+            Label : 'Category',
         },
         {
             $Type : 'UI.DataField',
             Value : UnitPrice,
             Label : 'Unit Price',
-            @UI.Importance : #High,
+            ![@UI.Importance] : #High,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : PaymentStatus,
+            Label : 'Payment',
+            Criticality : paymentCriticality,
+            CriticalityRepresentation : #WithIcon,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : Discontinued,
+            Label : 'Discontinued',
+            Criticality : discontinuedCriticality,
         },
         {
             $Type : 'UI.DataFieldForAction',
@@ -63,65 +81,125 @@ annotate service.Products with @(
     ],
     UI.SelectionFields : [
         ProductName,
-        SupplierID,
+        category_ID,
         UnitPrice,
+        PaymentStatus,
         UnitsLeft,
     ],
-    UI.DataPoint #UnitsInStock : {
+    // --- Micro Chart: Bullet chart for stock levels ---
+    UI.DataPoint #StockBullet : {
+        $Type : 'UI.DataPointType',
         Value : UnitsInStock,
-        MinimumValue : 0,
-        MaximumValue : 100,
+        TargetValue : 50,
+        Criticality : stockCriticality,
     },
-    UI.Chart #UnitsInStock : {
+    UI.Chart #StockBullet : {
+        $Type : 'UI.ChartDefinitionType',
+        Title : 'Stock Level',
+        Description : 'Stock vs Target',
         ChartType : #Bullet,
-        Measures : [
-            UnitsInStock,
-        ],
-        MeasureAttributes : [
-            {
-                DataPoint : '@UI.DataPoint#UnitsInStock',
-                Role : #Axis1,
-                Measure : UnitsInStock,
-            },
-        ],
+        Measures : [UnitsInStock],
+        MeasureAttributes : [{
+            $Type : 'UI.ChartMeasureAttributeType',
+            Measure : UnitsInStock,
+            Role : #Axis1,
+            DataPoint : '@UI.DataPoint#StockBullet',
+        }],
     },
+
+    // --- DataPoint: Radial chart for stock on Object Page header ---
+    UI.DataPoint #StockRadial : {
+        $Type : 'UI.DataPointType',
+        Value : UnitsInStock,
+        TargetValue : 100,
+        Criticality : stockCriticality,
+    },
+    UI.Chart #StockRadial : {
+        $Type : 'UI.ChartDefinitionType',
+        Title : 'Stock Level',
+        ChartType : #Donut,
+        Measures : [UnitsInStock],
+        MeasureAttributes : [{
+            $Type : 'UI.ChartMeasureAttributeType',
+            Measure : UnitsInStock,
+            Role : #Axis1,
+            DataPoint : '@UI.DataPoint#StockRadial',
+        }],
+    },
+
+    // --- DataPoints for header KPIs ---
+    UI.DataPoint #UnitPrice : {
+        $Type : 'UI.DataPointType',
+        Value : UnitPrice,
+        Title : 'Unit Price',
+        Criticality : 3, // Green
+    },
+    UI.DataPoint #PaymentStatus : {
+        $Type : 'UI.DataPointType',
+        Value : PaymentStatus,
+        Title : 'Payment Status',
+        Criticality : paymentCriticality,
+    },
+    UI.DataPoint #StockInfo : {
+        $Type : 'UI.DataPointType',
+        Value : UnitsInStock,
+        Title : 'Units In Stock',
+        Criticality : stockCriticality,
+    },
+
+    // --- Object Page Header ---
     UI.HeaderInfo : {
         Title : {
             $Type : 'UI.DataField',
             Value : ProductName,
         },
-        TypeName : '',
-        TypeNamePlural : '',
+        TypeName : 'Product',
+        TypeNamePlural : 'Products',
         Description : {
             $Type : 'UI.DataField',
-            Value : ProductID,
+            Value : category.CategoryName,
         },
         ImageUrl : image,
     },
     UI.HeaderFacets : [
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'UnitPrice',
+            ID : 'PriceHeader',
             Target : '@UI.DataPoint#UnitPrice',
         },
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'CategoryName',
-            Target : 'category/@UI.DataPoint#CategoryName',
+            ID : 'StockHeader',
+            Target : '@UI.Chart#StockRadial',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID : 'PaymentHeader',
+            Target : '@UI.DataPoint#PaymentStatus',
         },
     ],
-    UI.FieldGroup #GeneralInformation : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    },
+
+    // --- Object Page Sections ---
     UI.DeleteHidden : true,
     UI.Facets : [
         {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'General Information',
-            ID : 'GeneralInformation',
-            Target : '@UI.FieldGroup#GeneralInformation1',
+            $Type : 'UI.CollectionFacet',
+            ID : 'ProductDetailsFacet',
+            Label : 'Product Details',
+            Facets : [
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID : 'BasicInfoFacet',
+                    Label : 'Basic Information',
+                    Target : '@UI.FieldGroup#BasicInfo',
+                },
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID : 'StatusInfoFacet',
+                    Label : 'Status',
+                    Target : '@UI.FieldGroup#StatusInfo',
+                },
+            ],
         },
         {
             $Type : 'UI.ReferenceFacet',
@@ -130,82 +208,118 @@ annotate service.Products with @(
             Target : 'suppliers/@UI.LineItem#Suppliers1',
         },
     ],
-    UI.FieldGroup #Name : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    },
-    UI.FieldGroup #Name1 : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    },
-    UI.DataPoint #UnitPrice : {
-        $Type : 'UI.DataPointType',
-        Value : UnitPrice,
-        Title : 'Unit Price',
-    },
-    UI.FieldGroup #GeneralInformation1 : {
+
+    // --- Field Groups ---
+    UI.FieldGroup #BasicInfo : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
                 Value : ProductID,
-                Label : 'ProductID',
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : UnitPrice,
+                Label : 'Product ID',
             },
             {
                 $Type : 'UI.DataField',
                 Value : ProductName,
+                Label : 'Product Name',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : category_ID,
+                Label : 'Category',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : UnitPrice,
+                Label : 'Unit Price',
             },
         ],
     },
-    UI.FieldGroup #Suppliers : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    },
-    UI.FieldGroup #Attachments : {
+    UI.FieldGroup #StatusInfo : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : suppliers.product.attachments.content,
-                Label : 'content',
+                Value : UnitsInStock,
+                Label : 'Units In Stock',
+                Criticality : stockCriticality,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : UnitsOnOrder,
+                Label : 'Units On Order',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : UnitsLeft,
+                Label : 'Units Left',
+                Criticality : stockCriticality,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : PaymentStatus,
+                Label : 'Payment Status',
+                Criticality : paymentCriticality,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : OrderStatus,
+                Label : 'Order Status',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : DeliveryStatus,
+                Label : 'Delivery Status',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : Discontinued,
+                Label : 'Discontinued',
+                Criticality : discontinuedCriticality,
             },
         ],
     },
 );
 
 annotate service.Products with {
-    ProductName @(
-        Common.Label : 'ProductName',
-        )
-};
-
-annotate service.Products with {
-    SupplierID @Common.Label : 'SupplierID'
-};
-
-annotate service.Products with {
-    UnitPrice @Common.Label : 'UnitPrice'
-};
-
-annotate service.Products with {
-    UnitsLeft @Common.Label : 'UnitsLeft'
+    ProductName @Common.Label : 'Product Name';
+    SupplierID  @Common.Label : 'Supplier';
+    UnitPrice   @Common.Label : 'Unit Price';
+    UnitsLeft   @Common.Label : 'Units Left';
+    category    @(
+        Common.Label : 'Category',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Categories',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : category_ID,
+                    ValueListProperty : 'ID',
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'CategoryName',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+        Common.Text : category.CategoryName,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+    );
 };
 
 annotate service.Suppliers with @(
-    UI.LineItem #Details : [
-    ],
-    UI.LineItem #Suppliers : [
+    UI.LineItem #Suppliers1 : [
         {
             $Type : 'UI.DataField',
-            Value : Address,
-            Label : 'Address',
+            Value : CompanyName,
+            Label : 'Company',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : ContactName,
+            Label : 'Contact',
         },
         {
             $Type : 'UI.DataField',
@@ -219,64 +333,24 @@ annotate service.Suppliers with @(
         },
         {
             $Type : 'UI.DataField',
-            Value : Fax,
-            Label : 'Fax',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : ID,
-            Label : 'ID',
-        },
-    ],
-    UI.LineItem #Suppliers1 : [
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.City,
-            Label : 'City',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.Address,
-            Label : 'Address',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.CompanyName,
-            Label : 'CompanyName',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.ContactName,
-            Label : 'ContactName',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.Country,
-            Label : 'Country',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.ID,
-            Label : 'ID',
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : product.suppliers.Phone,
+            Value : Phone,
             Label : 'Phone',
         },
     ],
 );
 
-annotate service.ProductAttachments with @(
-    UI.LineItem #UploadedFiles : [
-    ]
-);
+annotate service.Categories with {
+    ID @(
+        Common.Text : CategoryName,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+    )
+};
 
 annotate service.Categories with @(
     UI.DataPoint #CategoryName : {
         $Type : 'UI.DataPointType',
         Value : CategoryName,
-        Title : 'CategoryName',
+        Title : 'Category',
     }
 );
 
