@@ -1,5 +1,53 @@
 {
-  "scopes": [],
+  "xsappname": "backend-xsuaa-demo",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Full access to Books"
+    },
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Read-only access to Books"
+    },
+    {
+      "name": "$XSAPPNAME.Greeter",
+      "description": "Can only call the hello function"
+    }
+  ],
   "attributes": [],
-  "role-templates": []
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "Admin role — full CRUD on Books",
+      "scope-references": ["$XSAPPNAME.Admin"]
+    },
+    {
+      "name": "Viewer",
+      "description": "Viewer role — read-only on Books",
+      "scope-references": ["$XSAPPNAME.Viewer"]
+    },
+    {
+      "name": "Greeter",
+      "description": "Greeter role — can only call hello",
+      "scope-references": ["$XSAPPNAME.Greeter"]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "BookStore_Admin",
+      "description": "Admin role collection",
+      "role-template-references": ["$XSAPPNAME.Admin"]
+    },
+    {
+      "name": "BookStore_Viewer",
+      "description": "Viewer role collection",
+      "role-template-references": ["$XSAPPNAME.Viewer"]
+    },
+    {
+      "name": "BookStore_Greeter",
+      "description": "Greeter role collection",
+      "role-template-references": ["$XSAPPNAME.Greeter"]
+    }
+  ]
 }

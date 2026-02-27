@@ -16,8 +16,27 @@
   "private": true,
   "cds": {
     "requires": {
-      "[production]": {
-        "auth": "xsuaa"
+      "auth": {
+        "[production]": {
+          "kind": "xsuaa"
+        },
+        "[development]": {
+          "kind": "mocked",
+          "users": {
+            "admin": {
+              "password": "admin",
+              "roles": ["Admin"]
+            },
+            "viewer": {
+              "password": "viewer",
+              "roles": ["Viewer"]
+            },
+            "greeter": {
+              "password": "greeter",
+              "roles": ["Greeter"]
+            }
+          }
+        }
       }
     }
   }
