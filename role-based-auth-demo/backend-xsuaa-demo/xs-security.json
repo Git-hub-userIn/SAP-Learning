@@ -20,34 +20,46 @@
     {
       "name": "Admin",
       "description": "Admin role — full CRUD on Books",
-      "scope-references": ["$XSAPPNAME.Admin"]
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
     },
     {
       "name": "Viewer",
       "description": "Viewer role — read-only on Books",
-      "scope-references": ["$XSAPPNAME.Viewer"]
+      "scope-references": [
+        "$XSAPPNAME.Viewer"
+      ]
     },
     {
       "name": "Greeter",
       "description": "Greeter role — can only call hello",
-      "scope-references": ["$XSAPPNAME.Greeter"]
+      "scope-references": [
+        "$XSAPPNAME.Greeter"
+      ]
     }
   ],
   "role-collections": [
     {
       "name": "BookStore_Admin",
       "description": "Admin role collection",
-      "role-template-references": ["$XSAPPNAME.Admin"]
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
     },
     {
       "name": "BookStore_Viewer",
       "description": "Viewer role collection",
-      "role-template-references": ["$XSAPPNAME.Viewer"]
+      "role-template-references": [
+        "$XSAPPNAME.Viewer"
+      ]
     },
     {
       "name": "BookStore_Greeter",
       "description": "Greeter role collection",
-      "role-template-references": ["$XSAPPNAME.Greeter"]
+      "role-template-references": [
+        "$XSAPPNAME.Greeter"
+      ]
     }
   ]
 }

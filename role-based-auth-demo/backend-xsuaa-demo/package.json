@@ -25,15 +25,21 @@
           "users": {
             "admin": {
               "password": "admin",
-              "roles": ["Admin"]
+              "roles": [
+                "Admin"
+              ]
             },
             "viewer": {
               "password": "viewer",
-              "roles": ["Viewer"]
+              "roles": [
+                "Viewer"
+              ]
             },
             "greeter": {
               "password": "greeter",
-              "roles": ["Greeter"]
+              "roles": [
+                "Greeter"
+              ]
             }
           }
         }
