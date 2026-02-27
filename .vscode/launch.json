@@ -160,6 +160,57 @@
             "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
             "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/SAP-Learning/role-based-auth-demo/frontend-xsuaa-demo\"}"
         }
+    },
+    {
+        "name": "Start flptest",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/flptest",
+        "runtimeExecutable": "npx",
+        "windows": {
+            "runtimeExecutable": "npx.cmd"
+        },
+        "runtimeArgs": [
+            "fiori",
+            "run"
+        ],
+        "args": [
+            "--open",
+            "test/flp.html#app-preview"
+        ],
+        "console": "internalConsole",
+        "internalConsoleOptions": "openOnSessionStart",
+        "outputCapture": "std",
+        "env": {
+            "DEBUG": "--inspect",
+            "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
+        }
+    },
+    {
+        "name": "Start flptest Local",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/flptest",
+        "runtimeExecutable": "npx",
+        "windows": {
+            "runtimeExecutable": "npx.cmd"
+        },
+        "runtimeArgs": [
+            "fiori",
+            "run"
+        ],
+        "args": [
+            "--config",
+            "./ui5-local.yaml",
+            "--open",
+            "test/flp.html#app-preview"
+        ],
+        "console": "internalConsole",
+        "internalConsoleOptions": "openOnSessionStart",
+        "outputCapture": "std",
+        "env": {
+            "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
+        }
     }
   ]
 }
