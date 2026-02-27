@@ -10,4 +10,10 @@ service CatalogService @(requires: 'authenticated-user') {
 
   @(restrict: [{ grant: 'READ', to: 'Greeter' }])
   function hello() returns String;
+
+  // Returns the current user's effective permissions — UI can use this to show/hide buttons
+  function securityAction() returns String;
+
+  // Returns current user info (id, roles, attributes)
+  function userInfo() returns String;
 }

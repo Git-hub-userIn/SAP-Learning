@@ -1,0 +1,85 @@
+### ===================================================
+### TEST FILE — Role-Based Auth Verification
+### Server must be running: cds serve
+### ===================================================
+
+
+### ----- securityAction: What can each user do? -----
+
+### 1. Admin → securityAction (expect all true)
+GET http://localhost:4004/odata/v4/catalog/securityAction()
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### 2. Viewer → securityAction (expect only Read true)
+GET http://localhost:4004/odata/v4/catalog/securityAction()
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+
+### 3. Greeter → securityAction (expect only Read true)
+GET http://localhost:4004/odata/v4/catalog/securityAction()
+Authorization: Basic Z3JlZXRlcjpncmVldGVy
+
+
+### ----- userInfo: Who am I? -----
+
+### 4. Admin → userInfo
+GET http://localhost:4004/odata/v4/catalog/userInfo()
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### 5. Viewer → userInfo
+GET http://localhost:4004/odata/v4/catalog/userInfo()
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+
+### 6. Greeter → userInfo
+GET http://localhost:4004/odata/v4/catalog/userInfo()
+Authorization: Basic Z3JlZXRlcjpncmVldGVy
+
+
+### ----- hello: Only Greeter can access -----
+
+### 7. Greeter → hello (expect 200 with greeting)
+GET http://localhost:4004/odata/v4/catalog/hello()
+Authorization: Basic Z3JlZXRlcjpncmVldGVy
+
+### 8. Admin → hello (expect 403 — Admin doesn't have Greeter role)
+GET http://localhost:4004/odata/v4/catalog/hello()
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### 9. Viewer → hello (expect 403)
+GET http://localhost:4004/odata/v4/catalog/hello()
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+
+
+### ----- Books: Greeter is BARRED, Viewer can READ, Admin has full CRUD -----
+
+### 10. Greeter → Books READ (expect 403 — no Books access)
+GET http://localhost:4004/odata/v4/catalog/Books
+Authorization: Basic Z3JlZXRlcjpncmVldGVy
+
+### 11. Viewer → Books READ (expect 200)
+GET http://localhost:4004/odata/v4/catalog/Books
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+
+### 12. Viewer → Books CREATE (expect 403)
+POST http://localhost:4004/odata/v4/catalog/Books
+Authorization: Basic dmlld2VyOnZpZXdlcg==
+Content-Type: application/json
+
+{"ID": 10, "title": "Test Book", "author": "Test Author"}
+
+### 13. Admin → Books READ (expect 200)
+GET http://localhost:4004/odata/v4/catalog/Books
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### 14. Admin → Books CREATE (expect 201)
+POST http://localhost:4004/odata/v4/catalog/Books
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Type: application/json
+
+{"ID": 10, "title": "Test Book", "author": "Test Author"}
+
+### 15. Admin → Books DELETE (expect 204)
+DELETE http://localhost:4004/odata/v4/catalog/Books(10)
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### 16. No auth → Books (expect 401)
+GET http://localhost:4004/odata/v4/catalog/Books
