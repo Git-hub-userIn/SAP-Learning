@@ -372,6 +372,72 @@ CAP checks: "Does ANY rule match the current (operation, role) pair?" If yes →
 { grant: '*', to: 'Manager' }
 ```
 
+### ⚠️ Grant Values on Functions vs Actions vs Entities
+
+The grant values above apply cleanly to **entities**. But `function` and `action` behave differently at runtime:
+
+| Construct | HTTP Method | CDS Event at Runtime | What `grant` matches? |
+|---|---|---|---|
+| entity query | `GET` | `READ` | `grant: 'READ'` ✅ |
+| entity create | `POST` | `CREATE` | `grant: 'CREATE'` or `grant: 'WRITE'` ✅ |
+| `function` | `GET` | `READ` | `grant: 'READ'` ✅ |
+| `action` | `POST` | *(the action's own name)* | **Only `grant: '*'`** ✅ |
+
+**Why?** When CAP processes a `function` call, the internal event is `READ` (because functions are GET requests). But when CAP processes an `action`, the event is **the action's name itself** — not `CREATE`, not `READ`.
+
+**What this means in practice:**
+
+```cds
+// FUNCTION — invoked via GET, event = READ
+function hello() returns String;
+
+// ✅ Works — function event is READ
+@(restrict: [{ grant: 'READ', to: 'Greeter' }])
+function hello() returns String;
+
+// ❌ Broken — WRITE = CREATE+UPDATE+DELETE, none match READ → 403 forever
+@(restrict: [{ grant: 'WRITE', to: 'Greeter' }])
+function hello() returns String;
+```
+
+```cds
+// ACTION — invoked via POST, event = action name
+action doSomething(input: String) returns String;
+
+// ❌ 403 forever — event is "doSomething", not READ
+@(restrict: [{ grant: 'READ', to: 'Admin' }])
+action doSomething() returns String;
+
+// ❌ 403 forever — WRITE = CREATE+UPDATE+DELETE, "doSomething" doesn't match any
+@(restrict: [{ grant: 'WRITE', to: 'Admin' }])
+action doSomething() returns String;
+
+// ✅ Works — wildcard matches everything including action name events
+@(restrict: [{ grant: '*', to: 'Admin' }])
+action doSomething() returns String;
+```
+
+**The practical rule:**
+
+> For **entities** → use `@restrict` with specific grants (`READ`, `WRITE`, `*`).
+>
+> For **functions and actions** → prefer `@requires: 'RoleName'` instead. It's cleaner because there's no meaningful READ/WRITE distinction — either you can call it or you can't.
+
+```cds
+// ✅ Recommended for functions/actions
+@(requires: 'Greeter')
+function hello() returns String;
+
+@(requires: 'Admin')
+action doSomething() returns String;
+
+// ✅ Also works — but unnecessarily verbose
+@(restrict: [{ grant: '*', to: 'Admin' }])
+action doSomething() returns String;
+```
+
+> **Gotcha:** If you have a working `function` with `grant: 'READ'` and later refactor it into an `action`, the same `grant: 'READ'` will silently lock everyone out with 403. Using `@requires` avoids this trap entirely.
+
 ---
 
 ### Step 2.4: Advanced — Field-Level Restrictions
