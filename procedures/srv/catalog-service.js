@@ -25,7 +25,8 @@ module.exports = class CatalogService extends cds.ApplicationService { async ini
     `CALL "get_order_summary"(iv_status => ?, ot_results => ?)`,
     [status]
   )
-  return result.ot_results
+  console.log('RAW RESULT:', JSON.stringify(result))  // ← add this
+  return result.OT_RESULTS;
 })
 
   return super.init()
