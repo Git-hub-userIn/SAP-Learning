@@ -275,7 +275,8 @@ module.exports = class CatalogService extends cds.ApplicationService {
         `CALL "get_order_summary"(iv_status => ?, ot_results => ?)`,
         [status]
       )
-      return result.ot_results
+      // HANA returns OUT parameter keys in UPPERCASE
+      return result.OT_RESULTS
     })
 
     return super.init()
@@ -419,7 +420,82 @@ This creates a `<project>-auth` XSUAA service instance on CF and satisfies the J
 
 ---
 
-## 10. Key Concepts
+## 10. Local Testing Against HANA (Hybrid Profile)
+
+Since `CALL` statements don't work with SQLite, you need to connect your local CAP app to the real HANA Cloud instance for testing procedures. CAP supports this via the **hybrid profile**.
+
+### Step 1 — Log into CF
+```bash
+cf login -a <your-api-endpoint>
+```
+
+### Step 2 — Bind local project to the deployed HANA service
+```bash
+cds bind -2 procedures-db
+```
+
+This creates `.cdsrc-private.json` in your project root with the HANA credentials. **Never commit this file** — add it to `.gitignore`.
+
+### Step 3 — Run locally against HANA
+```bash
+cds watch --profile hybrid
+```
+
+Your service runs on `http://localhost:4004` but all data and procedure calls go against the real HANA Cloud database.
+
+> **Note:** On trial accounts, HANA Cloud shuts down overnight. If you get a connection error, start your instance from the BTP cockpit first.
+
+### Step 4 — Call the function
+
+In the browser or via curl:
+```
+GET http://localhost:4004/odata/v4/catalog/getOrderSummary(status='open')
+```
+
+```bash
+curl "http://localhost:4004/odata/v4/catalog/getOrderSummary(status='open')"
+```
+
+Expected response:
+```json
+{
+  "@odata.context": "...",
+  "value": [
+    { "customer_id": "C001", "customer_name": "Alice", "order_count": 2, "total_amount": 200.00 },
+    { "customer_id": "C003", "customer_name": "Carol", "order_count": 1, "total_amount": 120.00 }
+  ]
+}
+```
+
+---
+
+### Error #5: Function returns empty array `[]` despite data existing
+
+**Symptom:**
+```json
+{ "value": [] }
+```
+
+**Cause:** HANA returns `OUT` parameter keys in **UPPERCASE**. If your handler uses `result.ot_results` (lowercase), it gets `undefined` which CAP serializes as an empty array.
+
+**Diagnosis — add a log to see the raw result:**
+```js
+this.on('getOrderSummary', async (req) => {
+  const result = await db.run(`CALL "get_order_summary"(iv_status => ?, ot_results => ?)`, [req.data.status])
+  console.log('RAW RESULT:', JSON.stringify(result))  // check the actual key name
+  return result.OT_RESULTS
+})
+```
+
+**Fix:** Use the uppercase key name matching the OUT parameter name in your procedure:
+```js
+return result.OT_RESULTS  // correct — HANA uppercases all OUT parameter keys
+return result.ot_results  // wrong — returns undefined → empty array
+```
+
+---
+
+## 11. Key Concepts
 
 ### Automation summary
 
@@ -452,6 +528,7 @@ For a single procedure with a simple output, define the table structure inline i
 // Named parameter style (recommended)
 await db.run(`CALL "proc_name"(in_param => ?, out_param => ?)`, [inputValue])
 
-// Result is returned as an object with keys matching OUT parameter names
-// result.out_param contains the output table as an array
+// HANA returns OUT parameter keys in UPPERCASE regardless of how you named them
+// result.OUT_PARAM — correct
+// result.out_param — undefined
 ```
