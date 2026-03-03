@@ -1,0 +1,25 @@
+PROCEDURE "get_order_summary" (
+    IN  iv_status  NVARCHAR(20),
+    OUT ot_results TABLE (
+        CUSTOMER_ID   NVARCHAR(36),
+        CUSTOMER_NAME NVARCHAR(100),
+        ORDER_COUNT   INTEGER,
+        TOTAL_AMOUNT  DECIMAL(10,2)
+    )
+)
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER
+READS SQL DATA
+AS
+BEGIN
+    ot_results = SELECT
+        c."ID"          AS "CUSTOMER_ID",
+        c."NAME"        AS "CUSTOMER_NAME",
+        COUNT(o."ID")   AS "ORDER_COUNT",
+        SUM(o."AMOUNT") AS "TOTAL_AMOUNT"
+    FROM "STUDY_ORDERS" AS o
+    JOIN "STUDY_CUSTOMERS" AS c
+      ON o."CUSTOMER_ID" = c."ID"
+    WHERE o."STATUS" = :iv_status
+    GROUP BY c."ID", c."NAME";
+END
