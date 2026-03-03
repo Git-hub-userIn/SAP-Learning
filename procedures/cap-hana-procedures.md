@@ -24,7 +24,8 @@ A complete implementation guide based on real deployment experience, including a
 ```bash
 cds init <project-name>
 cd <project-name>
-cds add hana
+cds add nodejs
+# cds add hana
 cds add hana --for production   # writes cds config block to package.json
 ```
 

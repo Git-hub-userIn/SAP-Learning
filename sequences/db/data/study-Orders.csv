@@ -1,0 +1,6 @@
+ID,customer_ID,amount,status
+1,C001,150.00,open
+2,C002,200.00,closed
+3,C001,50.00,open
+4,C003,300.00,closed
+5,C003,120.00,open
