@@ -52,3 +52,30 @@ annotate service.Products with @(
     Value: category_ID
   }]
 );
+
+
+
+annotate service.Products with @(
+  UI.Chart #OVP_PRICE_BY_CATEGORY: {
+    ChartType: #Column,
+    Dimensions: [category_ID],
+    Measures: [UnitPrice],
+
+    MeasureAttributes: [{
+      Measure: UnitPrice,
+      Role: #Axis1
+    }],
+
+    DimensionAttributes: [{
+      Dimension: category_ID,
+      Role: #Category
+    }]
+  },
+
+  UI.Identification #OVP_PRICE_BY_CATEGORY: [
+    {
+      $Type: 'UI.DataField',
+      Value: category_ID
+    }
+  ]
+);

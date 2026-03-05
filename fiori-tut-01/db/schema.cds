@@ -7,19 +7,20 @@ namespace my.company;
 
 entity Products : cuid, managed {
     ProductID      : Int32;
-    ProductName    : String(40)     @mandatory;
+    ProductName    : String(40)      @mandatory;
     SupplierID     : Int32;
     category       : Association to Categories;
-    UnitPrice      : Decimal(19, 4) @mandatory;
-    OrderStatus    : String(20)     @mandatory default 'None';
-    PaymentStatus  : String(20)     @mandatory default 'None';
-    DeliveryStatus : String(20)     @mandatory default 'None';
-    UnitsInStock   : Int16          @mandatory;
-    UnitsOnOrder   : Int16          @mandatory;
-    Discontinued   : Boolean        @mandatory default false;
+    UnitPrice      : Decimal(19, 4)  @mandatory                  @Measures.ISOCurrency            : Currency;
+    Currency       : String(3)       @mandatory;
+    OrderStatus    : String(20)      @mandatory default 'None';
+    PaymentStatus  : String(20)      @mandatory default 'None';
+    DeliveryStatus : String(20)      @mandatory default 'None';
+    UnitsInStock   : Int16           @mandatory;
+    UnitsOnOrder   : Int16           @mandatory;
+    Discontinued   : Boolean         @mandatory default false;
     // Product image with proper media type handling
-    image          : LargeBinary    @Core.MediaType: imageType  @Core.ContentDisposition.Filename: imageName;
-    imageType      : String         @Core.IsMediaType: true;
+    image          : LargeBinary     @Core.MediaType: imageType  @Core.ContentDisposition.Filename: imageName;
+    imageType      : String          @Core.IsMediaType: true;
     imageName      : String;
     suppliers      : Composition of many Suppliers
                          on suppliers.product = $self;
