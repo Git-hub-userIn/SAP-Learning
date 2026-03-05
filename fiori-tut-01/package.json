@@ -2,6 +2,7 @@
   "name": "fiori-tut-01",
   "version": "1.0.0",
   "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.15.9",
     "@sap/cds": "^9"
   },
   "devDependencies": {
@@ -10,14 +11,16 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-lrp-op": "cds watch --open sap.practice.lrpop/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-lrp-op": "cds watch --open sap.practice.lrpop/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-ovp-1": "cds watch --open ovp1/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "workspaces": [
     "app/*"
   ],
   "sapux": [
-    "app/lrp-op"
+    "app/lrp-op",
+    "app/ovp-1"
   ],
   "cds": {
     "server": {
