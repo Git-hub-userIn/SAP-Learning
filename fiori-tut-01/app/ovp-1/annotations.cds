@@ -29,3 +29,26 @@ annotate service.Products with @(UI.LineItem #OVP_PRODUCT_TABLE: [
     Label: 'Stock'
   }
 ]);
+
+annotate service.Products with @(
+  UI.Chart #OVP_STOCK_BY_CATEGORY         : {
+    ChartType          : #Donut,
+    Dimensions         : [category_ID],
+    Measures           : [UnitsInStock],
+
+    MeasureAttributes  : [{
+      Measure: UnitsInStock,
+      Role   : #Axis1
+    }],
+
+    DimensionAttributes: [{
+      Dimension: category_ID,
+      Role     : #Category
+    }]
+  },
+
+  UI.Identification #OVP_STOCK_BY_CATEGORY: [{
+    $Type: 'UI.DataField',
+    Value: category_ID
+  }]
+);

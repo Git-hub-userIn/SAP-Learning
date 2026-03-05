@@ -126,6 +126,16 @@
           "entitySet": "Products",
           "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#OVP_PRODUCT_TABLE"
         }
+      },
+      "productsChart": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "Stock by Category",
+          "entitySet": "Products",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#OVP_STOCK_BY_CATEGORY",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#OVP_STOCK_BY_CATEGORY"
+        }
       }
     },
     "globalFilterControlType": "MacroFilterBar"
