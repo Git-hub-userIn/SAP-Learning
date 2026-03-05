@@ -10,3 +10,22 @@ annotate service.Products with @(UI.LineItem #OVP: [
     Label: 'Payment Status'
   }
 ]);
+
+annotate service.Products with @(UI.LineItem #OVP_PRODUCT_TABLE: [
+  {
+    Value: ProductID,
+    Label: 'ID'
+  },
+  {
+    Value: ProductName,
+    Label: 'Product'
+  },
+  {
+    Value: UnitPrice,
+    Label: 'Price'
+  },
+  {
+    Value: UnitsInStock,
+    Label: 'Stock'
+  }
+]);

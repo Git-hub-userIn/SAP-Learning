@@ -114,7 +114,17 @@
         "template": "sap.ovp.cards.list",
         "settings": {
           "title": "Products",
-          "entitySet": "Products"
+          "entitySet": "Products",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#OVP"
+        }
+      },
+      "productsTable": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.table",
+        "settings": {
+          "title": "Products Table",
+          "entitySet": "Products",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#OVP_PRODUCT_TABLE"
         }
       }
     },
