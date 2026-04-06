@@ -4,12 +4,12 @@
       "[pg]": {
         "kind": "postgres",
         "credentials": {
-          "host": "ep-odd-cherry-amyugd5f-pooler.c-5.us-east-1.aws.neon.tech",
+          "host": "127.0.0.1",
           "port": 5432,
-          "user": "neondb_owner",
-          "password": "npg_zdA6qVnx7cWX",
-          "database": "neondb",
-          "ssl": true
+          "user": "postgres",
+          "password": "1234567890",
+          "database": "capdb",
+          "ssl": false
         },
         "pool": {
           "acquireTimeoutMillis": 30000,
