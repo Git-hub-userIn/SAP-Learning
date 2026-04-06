@@ -1,0 +1,21 @@
+{
+  "requires": {
+    "db": {
+      "[pg]": {
+        "kind": "postgres",
+        "credentials": {
+          "host": "ep-odd-cherry-amyugd5f-pooler.c-5.us-east-1.aws.neon.tech",
+          "port": 5432,
+          "user": "neondb_owner",
+          "password": "npg_zdA6qVnx7cWX",
+          "database": "neondb",
+          "ssl": true
+        },
+        "pool": {
+          "acquireTimeoutMillis": 30000,
+          "destroyTimeoutMillis": 30000
+        }
+      }
+    }
+  }
+}

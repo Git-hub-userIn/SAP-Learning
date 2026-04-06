@@ -1,0 +1,24 @@
+{
+  "name": "psql-cap-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^9",
+    "@cap-js/postgres": "^2"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "deploy-pg": "cds deploy --profile pg"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "postgres",
+        "auto_create": true
+      }
+    }
+  },
+  "private": true
+}
