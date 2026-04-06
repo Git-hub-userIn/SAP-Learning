@@ -1,5 +1,5 @@
 {
-  "name": "cf-psql",
+  "name": "remote-psql",
   "version": "1.0.0",
   "dependencies": {
     "@sap/cds": "^9",

@@ -1,5 +1,5 @@
 _schema-version: 3.3.0
-ID: cf-psql
+ID: remote-psql
 version: 1.0.0
 description: "A simple CAP project."
 parameters:
@@ -11,7 +11,7 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
-  - name: cf-psql-srv
+  - name: remote-psql-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -24,9 +24,9 @@ modules:
         properties:
           srv-url: ${default-url}
     requires:
-      - name: cf-psql-postgres
+      - name: remote-psql-postgres
 
-  - name: cf-psql-postgres-deployer
+  - name: remote-psql-postgres-deployer
     type: nodejs
     path: gen/pg
     parameters:
@@ -37,11 +37,10 @@ modules:
         - name: deploy-to-postgresql
           command: npm start
     requires:
-      - name: cf-psql-postgres
+      - name: remote-psql-postgres
 
 resources:
-  - name: cf-psql-postgres
-    type: org.cloudfoundry.managed-service
+  - name: remote-psql-postgres
+    type: org.cloudfoundry.existing-service
     parameters:
-      service: postgresql-db
-      service-plan: development
+      service-name: postgres
