@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "dependencies": {
     "@sap/cds": "^9",
-    "@cap-js/postgres": "^2"
+    "@cap-js/postgres": "^2",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
@@ -12,5 +13,12 @@
   "scripts": {
     "start": "cds-serve"
   },
-  "private": true
+  "private": true,
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa"
+      }
+    }
+  }
 }

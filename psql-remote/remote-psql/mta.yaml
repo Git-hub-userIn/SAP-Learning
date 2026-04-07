@@ -25,6 +25,7 @@ modules:
           srv-url: ${default-url}
     requires:
       - name: remote-psql-postgres
+      - name: remote-psql-auth
 
   - name: remote-psql-postgres-deployer
     type: nodejs
@@ -44,3 +45,16 @@ resources:
     type: org.cloudfoundry.existing-service
     parameters:
       service-name: postgres
+  - name: remote-psql-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: remote-psql-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
